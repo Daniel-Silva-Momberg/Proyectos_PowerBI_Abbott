@@ -72,6 +72,13 @@ gph['mr'] = gph['PRODUCTO'].apply(lambda x: get_matching_id(x, mr, threshold=60)
 gph.to_excel("gph_token_partial_ratio_2.xlsx")
 
 
+gph2 = pd.read_excel("Precios_GPH.xlsx")
+gph2 = gph2[["Código Barra","Producto 04  - 09"]].drop_duplicates()
+gph2.rename(columns = {"Código Barra":"COD","Producto 04  - 09":"PRODUCTO"},inplace=True)
+gph2["PRODUCTO"] = gph2["PRODUCTO"].str.upper()
+gph2.dropna(inplace=True)
+gph2['mr'] = gph2['PRODUCTO'].apply(lambda x: get_matching_id(x, mr, threshold=60))
+gph2.to_excel("gph_token_partial_ratio_2.xlsx")
 
 
 
