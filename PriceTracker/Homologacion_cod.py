@@ -10,7 +10,6 @@ Título : Homologación de Códigos
 import os
 import pandas as pd
 import pyodbc
-import pandas as pd
 from fuzzywuzzy import fuzz
 
 
@@ -55,7 +54,7 @@ scf = pd.read_excel("Precios_SOCOFAR.xlsx", sheet_name="Homologación")
 scf = scf[["CÓDIGO SOCOFAR","DESCRIPTOR"]].drop_duplicates()
 scf.rename(columns = {"CÓDIGO SOCOFAR":"COD","DESCRIPTOR":"PRODUCTO"},inplace=True)
 scf["PRODUCTO"] = scf["PRODUCTO"].str.upper()
-scf['mr'] = scf['PRODUCTO'].apply(lambda x: get_matching_id(x, mr, threshold=90))
+scf['mr'] = scf['PRODUCTO'].apply(lambda x: get_matching_id(x, mr, threshold=60))
 scf.to_excel("scf_token_partial_ratio_2.xlsx")
 
 # mr['scf'] = mr['PRODUCTO'].apply(lambda x: get_matching_id(x, scf))
@@ -68,9 +67,9 @@ gph = pd.read_excel("Precios_GPH.xlsx")
 gph = gph[["Código Barra","Producto 04  - 09"]].drop_duplicates()
 gph.rename(columns = {"Código Barra":"COD","Producto 04  - 09":"PRODUCTO"},inplace=True)
 gph["PRODUCTO"] = scf["PRODUCTO"].str.upper()
-gph['mr'] = gph['PRODUCTO'].apply(lambda x: get_matching_id(x, mr, threshold=90))
+gph.dropna(inplace=True)
+gph['mr'] = gph['PRODUCTO'].apply(lambda x: get_matching_id(x, mr, threshold=60))
 gph.to_excel("gph_token_partial_ratio_2.xlsx")
-
 
 
 
@@ -263,10 +262,3 @@ print(df1)
 
 
 
-
-
-
-
-
-
->>>>>>> 150dc07e37d86f36f4daf10c14fa3348f169ff79
