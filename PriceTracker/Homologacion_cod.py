@@ -81,6 +81,17 @@ gph2['mr'] = gph2['PRODUCTO'].apply(lambda x: get_matching_id(x, mr, threshold=6
 gph2.to_excel("gph_token_partial_ratio_2.xlsx")
 
 
+# MEDIVEN
+#******************************************************************************
+med = pd.read_excel("Precios_MEDIVEN.xlsx")
+med = med[["Descripcion"]].drop_duplicates()
+med.rename(columns = {"Descripcion":"PRODUCTO"},inplace=True)
+med["PRODUCTO"] = med["PRODUCTO"].str.upper()
+med.dropna(inplace=True)
+med['mr'] = med['PRODUCTO'].apply(lambda x: get_matching_id(x, mr, threshold=60))
+med.to_excel("med_token_partial_ratio_2.xlsx")
+
+
 
 
 
