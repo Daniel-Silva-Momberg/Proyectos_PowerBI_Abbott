@@ -42,6 +42,7 @@ os.chdir("C:\\Users\\Daniel\\Desktop\ABBOTT\\Proyectos Power BI\\PriceTracker")
 #******************************************************************************
 #query_mr = "select * from P_MERCADO_RELEVANTE_FALLAS"
 #mr = pd.read_sql(query_mr, con)
+
 mr = pd.read_excel("MercadoRelevante_IQVIA.xlsx")
 mr = mr[["Cód_IMS","Presentación"]].drop_duplicates()
 mr.rename(columns = {"Cód_IMS":"IMS","Presentación":"PRODUCTO"},inplace=True)
